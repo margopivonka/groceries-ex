@@ -47,7 +47,14 @@ print("THERE ARE", len(products), "PRODUCTS:")
 
 print("----------------------")
 
-for product in products:
+
+def sort_by_name(any_product):
+    return any_product["name"]
+sorted_products = sorted(products, key=sort_by_name)
+
+
+
+for product in sorted_products:
    # print(product["name"],product["price"])
     #print("+ All-Seasons Salt ($4.99)")
     #price_usd = product["price"]
@@ -56,10 +63,21 @@ for product in products:
     
     print("+ " + product["name"] + price_usd)
 
+departments = []
 
+for product in products:
+    #print(product["department"])
+ 
+    if product["department"] not in departments:
+        departments.append(product["department"])
+        #conditionally appends departments to department list
+
+department_count = len(departments)
 
 print("----------------------")
-
-#print("THERE ARE", filter(products["department"]), "DEPARTMENTS:")
-    
+print("THERE ARE "+str(department_count) + " DEPARTMENTS:")
 print("----------------------")
+
+for d in departments:
+    print(d)
+
