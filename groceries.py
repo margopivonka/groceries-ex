@@ -2,6 +2,8 @@
 
 #from pprint import pprint
 
+#this is a list composed of dictionaries -- the {} give it away
+    #
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -25,15 +27,67 @@ products = [
     {"id":20, "name": "Pomegranate Cranberry & Aloe Vera Enrich Drink", "department": "beverages", "aisle": "juice nectars", "price": 4.25}
 ] # based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
-print(products)
+#print(products)
 # pprint(products)
+
 
 # TODO: write some Python code here to produce the desired output
 
-print("--------------")
-print("THERE ARE 20 PRODUCTS:")
-print("--------------")
+
+
+print("----------------------")
+
+#print("THERE ARE 20 PRODUCTS:")
+#instead of hard coding the number 20, count the actual number of products in the list
+
+print("THERE ARE", len(products), "PRODUCTS:")
+#print(f"THERE ARE {len(products)} PRODUCTS:")
+#print("THERE ARE " + str(len(products)) + " PRODUCTS:")
+    #to concatinate you have to convert the list to a string
+
+print("----------------------")
+
+
+def sort_by_name(any_product):
+    return any_product["name"]
+sorted_products = sorted(products, key=sort_by_name)
 
 
 
+for product in sorted_products:
+   # print(product["name"],product["price"])
+    #print("+ All-Seasons Salt ($4.99)")
+    #price_usd = product["price"]
+    #price_usd = "${0:.2f}".format(product["price"])
+    price_usd = " (${0:.2f})".format(product["price"])
+    
+    print("+ " + product["name"] + price_usd)
+
+departments = []
+
+for product in products:
+    #print(product["department"])
+ 
+    if product["department"] not in departments:
+        departments.append(product["department"])
+        #conditionally appends departments to department list
+
+department_count = len(departments)
+
+print("----------------------")
+print("THERE ARE "+str(department_count) + " DEPARTMENTS:")
+print("----------------------")
+
+departments.sort()
+#sort departments alphabetically
+
+for d in departments:
+    matching_products = [product for product in products if product["department"] == d]
+    matching_products_count = len(matching_products)
+    if matching_products_count > 1:
+        label = " products"
+    else:
+        label = " product"
+    print(d.title() + " (" + str(matching_products_count) + label + ")") 
+    #prints department names in title format
 
